@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master application security with in-depth lessons on authentication, encryption, and secure coding practices on Cyber Wiki.">
+    <meta name="keywords" content="application security, authentication, encryption, secure coding, cybersecurity">
+    <meta name="author" content="Sisco">
+    <title>Cyber Wiki - Application Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00FF7F 0%, #FF4500 50%, #FF1493 100%);
+            --secondary-gradient: linear-gradient(45deg, #E0FFFF, #FF4500);
+            --glass-bg: rgba(42, 0, 77, 0.15);
+            --glass-border: rgba(255, 20, 147, 0.25);
+            --text-primary: #E0FFFF;
+            --text-secondary: rgba(224, 255, 255, 0.85);
+            --shadow-glow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            --aurora-green: #00FF7F;
+            --solar-orange: #FF4500;
+            --nova-pink: #FF1493;
+            --polar-white: #E0FFFF;
+            --deep-space: #2A004D;
+            --max-width: 1200px;
+            --note-gradient: linear-gradient(90deg, #00FF7F, #FF4500, #FF1493);
+            --quiz-bg: rgba(42, 0, 77, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-space);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 90%;
+            padding: 2vh 0;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 127, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 20, 147, 0.2) 0%, transparent 50%);
+            animation: cosmicShift 25s ease-in-out infinite;
+        }
+
+        @keyframes cosmicShift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nebula-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, var(--nova-pink) 20%, transparent 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange);
+            animation: floatNebula 40s infinite linear, pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes floatNebula {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0.3; }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange); }
+            100% { box-shadow: 0 0 15px var(--aurora-green), 0 0 25px var(--nova-pink), 0 0 40px var(--solar-orange); }
+        }
+
+        .hologram-header {
+            text-align: center;
+            padding: 5vh 0;
+        }
+
+        .hologram-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            background: var(--primary-gradient);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: hologramShift 4s ease-in-out infinite;
+        }
+
+        @keyframes hologramShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hologram-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 1.5vh;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-bar {
+            position: sticky;
+            top: 20px;
+            margin: 0 0 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 1vw 2vw;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            width: 100%;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .info-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2vw;
+            margin: 0 0 6vh;
+            transition: transform 0.3s ease;
+        }
+
+        .info-container:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .info-container .section-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: 1.5vh;
+            filter: drop-shadow(0 0 15px var(--nova-pink));
+            animation: iconPulse 2s infinite alternate;
+        }
+
+        @keyframes iconPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .info-container h3 {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+            text-shadow: 0 0 10px var(--aurora-green);
+        }
+
+        .info-container p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1vh;
+        }
+
+        .lesson-content {
+            margin-top: 1vh;
+            padding-left: 2vw;
+        }
+
+        .lesson-content h4 {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: var(--text-primary);
+            margin: 1.5vh 0 1vh;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textFade 2s infinite alternate;
+        }
+
+        @keyframes textFade {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        .note-box {
+            background: var(--note-gradient);
+            background-size: 200% 200%;
+            padding: 1vw;
+            border-radius: 10px;
+            margin: 1.5vh 0;
+            color: var(--polar-white);
+            font-style: italic;
+            animation: noteGlow 4s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--nova-pink);
+        }
+
+        @keyframes noteGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--nova-pink); }
+            50% { box-shadow: 0 0 20px var(--aurora-green); }
+        }
+
+        pre {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1vw;
+            border-radius: 10px;
+            color: var(--text-primary);
+            overflow-x: auto;
+            font-family: 'Inter', monospace;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            margin: 1vh 0;
+            animation: codeBlink 3s infinite alternate;
+        }
+
+        @keyframes codeBlink {
+            from { border-color: var(--glass-border); }
+            to { border-color: var(--aurora-green); }
+        }
+
+        code {
+            font-family: 'Inter', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            margin: 1.5vh 0;
+            animation: tableFade 2s ease-in-out infinite;
+        }
+
+        @keyframes tableFade {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        th, td {
+            padding: 1vw;
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        th {
+            background: rgba(42, 0, 77, 0.25);
+            color: var(--text-primary);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--aurora-green);
+            cursor: pointer;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            margin-top: 1vh;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            color: var(--solar-orange);
+        }
+
+        .info-container.collapsed .lesson-content,
+        .info-container.collapsed p:not(.intro) {
+            display: none;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1vw 2vw;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .social-share {
+            margin-top: 1vh;
+            display: flex;
+            gap: 1vw;
+        }
+
+        .share-btn {
+            color: var(--nova-pink);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .share-btn:hover {
+            color: var(--aurora-green);
+            transform: scale(1.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 1.5vh;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1.5vh;
+            box-shadow: 0 0 5px var(--nova-pink);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--solar-orange);
+            width: 0;
+            transition: width 1s ease;
+            border-radius: 10px;
+            animation: progressGlow 2s infinite alternate;
+        }
+
+        @keyframes progressGlow {
+            from { box-shadow: 0 0 5px var(--solar-orange); }
+            to { box-shadow: 0 0 15px var(--aurora-green); }
+        }
+
+        .nav-container {
+            position: fixed;
+            bottom: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1vw 2vw;
+            display: flex;
+            gap: 1vw;
+            box-shadow: var(--shadow-glow);
+            z-index: 1000;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1vw 1.5vw;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(42, 0, 77, 0.2);
+            color: var(--text-primary);
+            transform: translateY(-0.5vh);
+        }
+
+        .nav-item.active {
+            background: var(--secondary-gradient);
+            color: var(--text-primary);
+        }
+
+        .nav-icon {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            margin-bottom: 0.5vh;
+        }
+
+        .section-animated {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section-animated.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quiz-container {
+            margin: 2vh 0;
+        }
+
+        .quiz-container h4 {
+            font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1.5vh;
+            text-align: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .quiz-question {
+            background: var(--quiz-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5vw;
+            margin-bottom: 1.5vh;
+            animation: quizFade 2s infinite alternate;
+        }
+
+        @keyframes quizFade {
+            from { box-shadow: 0 0 5px var(--nova-pink); }
+            to { box-shadow: 0 0 15px var(--aurora-green); }
+        }
+
+        .quiz-question p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            margin-bottom: 1vh;
+            color: var(--text-secondary);
+        }
+
+        .quiz-answer {
+            width: 100%;
+            padding: 0.8vw;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: rgba(42, 0, 77, 0.1);
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.1vw, 1rem);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .quiz-answer:focus {
+            border-color: var(--aurora-green);
+            box-shadow: 0 0 10px var(--aurora-green);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .search-bar {
+                padding: 2vw 3vw;
+            }
+
+            .info-container .section-icon {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                padding: 1vw;
+                gap: 0.5vw;
+                bottom: 1vh;
+            }
+
+            .nav-item {
+                padding: 1vw;
+                font-size: 0.7rem;
+            }
+
+            .nav-icon {
+                font-size: 1rem;
+            }
+
+            .hologram-title {
+                font-size: 2rem;
+            }
+
+            .social-share {
+                flex-direction: column;
+                gap: 1vh;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            .note-box {
+                font-size: 0.9rem;
+            }
+
+            .quiz-question {
+                padding: 2vw;
+            }
+
+            .quiz-answer {
+                font-size: 0.9rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(42, 0, 77, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--nova-pink);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--solar-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg" data-parallax="0.5"></div>
+    <div class="nebula-field" id="nebulaField"></div>
+    <main class="main-content">
+        <div class="container">
+            <header class="hologram-header">
+                <h1 class="hologram-title">Application Security Hub</h1>
+                <p class="hologram-subtitle">Protect apps with expert lessons on secure development</p>
+            </header>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search Application Security..." aria-label="Search application security content">
+            </div>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-code"></i></span>
+                <h3>Authentication</h3>
+                <p class="intro">Secure user access with robust authentication mechanisms to prevent unauthorized entry.</p>
+                <div class="lesson-content">
+                    <h4>Fundamentals</h4>
+                    <p>Authentication verifies user identity using methods like passwords, multi-factor authentication (MFA), and single sign-on (SSO). MFA combines something you know (password) with something you have (phone) or are (biometrics), reducing risks from stolen credentials.</p>
+                    <ul>
+                        <li><strong>Passwords</strong>: Require strong, unique passwords with regular updates.</li>
+                        <li><strong>MFA</strong>: Adds a second layer, e.g., a code sent to your phone.</li>
+                        <li><strong>SSO</strong>: Allows one login for multiple services, improving user experience.</li>
+                    </ul>
+                    <pre>python -c "import hashlib; print(hashlib.sha256('password'.encode()).hexdigest())"</pre>
+                    <button class="cta-button" data-clipboard-text="python -c 'import hashlib; print(hashlib.sha256(\"password\".encode()).hexdigest())'">Copy Command</button>
+                    <div class="note-box">💡 Tip: Hash passwords with salts to enhance security!</div>
+                    <h4>Real-World Case</h4>
+                    <p>The 2012 LinkedIn breach exposed 6.5 million passwords due to weak hashing, underscoring the need for strong authentication.</p>
+                    <div class="note-box">⚠️ Warning: Weak passwords account for 80% of data breaches!</div>
+                </div>
+                <div class="quiz-container" id="quiz-authentication">
+                    <button class="cta-button" onclick="showQuiz('authentication')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/app/authentication" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/app/authentication" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-lock"></i></span>
+                <h3>Encryption</h3>
+                <p class="intro">Protect data with encryption to ensure confidentiality and integrity during transmission.</p>
+                <div class="lesson-content">
+                    <h4>Techniques</h4>
+                    <p>Encryption uses algorithms like AES-256 for symmetric encryption and RSA for asymmetric encryption. Symmetric methods are fast for large data, while asymmetric secures key exchanges, as seen in HTTPS with TLS.</p>
+                    <ul>
+                        <li><strong>AES-256</strong>: Encrypts data with a single key, ideal for bulk storage.</li>
+                        <li><strong>RSA</strong>: Uses public-private key pairs for secure communication.</li>
+                        <li><strong>TLS</strong>: Combines both for web security.</li>
+                    </ul>
+                    <pre>openssl enc -aes-256-cbc -in file.txt -out file.enc -k secretkey</pre>
+                    <button class="cta-button" data-clipboard-text="openssl enc -aes-256-cbc -in file.txt -out file.enc -k secretkey">Copy Command</button>
+                    <div class="note-box">💡 Tip: Rotate encryption keys periodically to minimize risks!</div>
+                    <h4>Real-World Case</h4>
+                    <p>The 2017 WannaCry ransomware attack exploited unencrypted systems, affecting 200,000+ computers globally.</p>
+                    <div class="note-box">🌐 Fun Fact: Encryption prevented 90% of data loss in targeted organizations!</div>
+                </div>
+                <div class="quiz-container" id="quiz-encryption">
+                    <button class="cta-button" onclick="showQuiz('encryption')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/app/encryption" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/app/encryption" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-shield-alt"></i></span>
+                <h3>Secure Coding</h3>
+                <p class="intro">Write code that resists common vulnerabilities to build secure applications.</p>
+                <div class="lesson-content">
+                    <h4>Best Practices</h4>
+                    <p>Secure coding prevents issues like SQL injection and cross-site scripting (XSS). Use parameterized queries for databases and escape output in web apps to mitigate these risks.</p>
+                    <ul>
+                        <li><strong>SQL Injection</strong>: Avoid raw queries; use prepared statements.</li>
+                        <li><strong>XSS</strong>: Sanitize user input and use content security policies.</li>
+                        <li><strong>Input Validation</strong>: Check all data before processing.</li>
+                    </ul>
+                    <pre>SELECT * FROM users WHERE id = ?</pre>
+                    <button class="cta-button" data-clipboard-text="SELECT * FROM users WHERE id = ?">Copy Command</button>
+                    <div class="note-box">💡 Tip: Regularly scan code with tools like OWASP ZAP!</div>
+                    <h4>Real-World Case</h4>
+                    <p>The 2017 Equifax breach stemmed from unpatched Apache Struts, highlighting poor coding practices.</p>
+                    <div class="note-box">⚠️ Warning: 70% of breaches involve coding flaws!</div>
+                </div>
+                <div class="quiz-container" id="quiz-secure-coding">
+                    <button class="cta-button" onclick="showQuiz('secure-coding')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/app/secure-coding" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/app/secure-coding" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-trophy"></i></span>
+                <h3>Progress</h3>
+                <p class="intro">Track your learning journey and earn rewards in application security!</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" aria-label="Progress"></div>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/app" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/app" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </section>
+        </div>
+    </main>
+    <nav class="nav-container">
+        <a href="index.html" class="nav-item"><span class="nav-icon"><i class="fas fa-home"></i></span>Home</a>
+        <a href="fundamentals.html" class="nav-item"><span class="nav-icon"><i class="fas fa-dna"></i></span>Fundamentals</a>
+        <a href="network.html" class="nav-item"><span class="nav-icon"><i class="fas fa-globe"></i></span>Network</a>
+        <a href="application.html" class="nav-item active"><span class="nav-icon"><i class="fas fa-lock"></i></span>Apps</a>
+        <a href="resources.html" class="nav-item"><span class="nav-icon"><i class="fas fa-bolt"></i></span>Resources</a>
+    </nav>
+   
+    <script>
+        // Glowing Floating Stars
+        function unleashNebulaField() {
+            const container = document.getElementById('nebulaField');
+            if (container) {
+                for (let i = 0; i < 50; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 40 + 's';
+                    star.style.animationDuration = (Math.random() * 30 + 20) + 's';
+                    star.style.transform = `scale(${Math.random() * 0.7 + 0.3})`;
+                    container.appendChild(star);
+                }
+            }
+        }
+
+        // Navigation
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentPage = window.location.pathname.split('/').pop() || 'application.html';
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Search Functionality
+        function initSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const sections = document.querySelectorAll('.info-container');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    sections.forEach(section => {
+                        const text = section.textContent.toLowerCase();
+                        section.style.display = text.includes(query) ? 'block' : 'none';
+                    });
+                });
+            }
+        }
+
+        // Collapsible Sections
+        function initCollapsible() {
+            const toggles = document.querySelectorAll('.toggle-btn');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const container = toggle.parentElement;
+                    container.classList.toggle('collapsed');
+                    toggle.textContent = container.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+                });
+            });
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section-animated');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Parallax Effect
+        function initParallax() {
+            const bg = document.querySelector('.cosmic-bg');
+            if (bg) {
+                window.addEventListener('scroll', () => {
+                    const scrollY = window.scrollY;
+                    bg.style.transform = `translateY(${scrollY * 0.5}px)`;
+                });
+            }
+        }
+
+        // Rewards System
+        function updateRewards() {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progress = Math.min(100, parseInt(progress) || 0);
+                progressFill.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    alert('Congratulations! You’ve unlocked all rewards!');
+                }
+            }
+        }
+
+        function addProgress(points) {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            progress = parseInt(progress) + points;
+            localStorage.setItem('cyberProgress', progress);
+            updateRewards();
+        }
+
+        // Clipboard Functionality
+        function initClipboard() {
+            const buttons = document.querySelectorAll('[data-clipboard-text]');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.getAttribute('data-clipboard-text');
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    try {
+                        document.execCommand('copy');
+                        button.textContent = 'Copied!';
+                        setTimeout(() => { button.textContent = 'Copy Command'; }, 2000);
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        alert('Copy failed. Please copy manually.');
+                    }
+                    document.body.removeChild(tempInput);
+                });
+            });
+        }
+
+        // Quiz System
+        function showQuiz(topic) {
+            const quizzes = {
+                'authentication': [
+                    { q: 'What verifies user identity?', a: 'Authentication' },
+                    { q: 'What adds a second security layer?', a: 'MFA' },
+                    { q: 'What allows one login for multiple services?', a: 'SSO' },
+                    { q: 'What hashes passwords?', a: 'SHA-256' },
+                    { q: 'What caused the LinkedIn 2012 breach?', a: 'Weak hashing' }
+                ],
+                'encryption': [
+                    { q: 'What encrypts bulk data?', a: 'AES-256' },
+                    { q: 'What uses public-private keys?', a: 'RSA' },
+                    { q: 'What secures web traffic?', a: 'TLS' },
+                    { q: 'What’s an encryption command?', a: 'openssl enc -aes-256-cbc' },
+                    { q: 'What exploited unencrypted systems in 2017?', a: 'WannaCry' }
+                ],
+                'secure-coding': [
+                    { q: 'What prevents SQL injection?', a: 'Prepared statements' },
+                    { q: 'What mitigates XSS?', a: 'Input sanitization' },
+                    { q: 'What checks data before processing?', a: 'Input validation' },
+                    { q: 'What tool scans code?', a: 'OWASP ZAP' },
+                    { q: 'What caused the Equifax 2017 breach?', a: 'Unpatched code' }
+                ]
+            };
+            const quiz = quizzes[topic];
+            const container = document.getElementById(`quiz-${topic}`);
+            if (container) {
+                container.innerHTML = `
+                    <h4>Quiz Time!</h4>
+                    <form class="quiz-form" id="quiz-form-${topic}" data-topic="${topic}">
+                        ${quiz.map((q, i) => `
+                            <div class="quiz-question">
+                                <p>${i + 1}. ${q.q}</p>
+                                <input type="text" class="quiz-answer" data-index="${i}" placeholder="Your answer" required>
+                            </div>
+                        `).join('')}
+                        <button type="submit" class="cta-button">Submit</button>
+                    </form>
+                `;
+                // Reattach event listener after form creation
+                attachQuizSubmit();
+            }
+        }
+
+        function attachQuizSubmit() {
+            document.body.addEventListener('submit', (e) => {
+                if (e.target.matches('.quiz-form')) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const topic = form.getAttribute('data-topic');
+                    submitQuiz(topic, form);
+                }
+            }, { passive: false });
+        }
+
+        function submitQuiz(topic, form) {
+            if (!form) {
+                console.error(`Form for ${topic} is undefined.`);
+                return;
+            }
+            const answers = form.querySelectorAll('.quiz-answer');
+            const quiz = {
+                'authentication': ['Authentication', 'MFA', 'SSO', 'SHA-256', 'Weak hashing'],
+                'encryption': ['AES-256', 'RSA', 'TLS', 'openssl enc -aes-256-cbc', 'WannaCry'],
+                'secure-coding': ['Prepared statements', 'Input sanitization', 'Input validation', 'OWASP ZAP', 'Unpatched code']
+            }[topic];
+            let score = 0;
+            if (answers.length !== quiz.length) {
+                console.error(`Mismatch in answer count for ${topic}: expected ${quiz.length}, got ${answers.length}.`);
+            }
+            answers.forEach((input, i) => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = quiz[i].toLowerCase();
+                if (userAnswer === correctAnswer) score++;
+            });
+            addProgress(score * 5);
+            const result = `<p>Score: ${score}/${quiz.length}</p><button class="cta-button" onclick="showQuiz('${topic}')">Retry</button>`;
+            form.outerHTML = result; // Replace form with result
+        }
+
+        // Initialize
+        function init() {
+            document.addEventListener('DOMContentLoaded', () => {
+                unleashNebulaField();
+                initNavigation();
+                initSearch();
+                initCollapsible();
+                initScrollAnimations();
+                initParallax();
+                updateRewards();
+                initClipboard();
+                attachQuizSubmit(); // Initial attachment
+            });
+            window.addEventListener('load', updateRewards);
+        }
+
+        // Start initialization
+        init();
+    </script>
+</body>
+</html>

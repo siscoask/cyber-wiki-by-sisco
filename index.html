@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master cybersecurity with Cyber Wiki - expert guides, challenges, and real-time updates.">
+    <meta name="keywords" content="cybersecurity, learning, challenges, tutorials">
+    <meta name="author" content="Sisco">
+    <title>Cyber Wiki - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00FF7F 0%, #FF4500 50%, #FF1493 100%);
+            --secondary-gradient: linear-gradient(45deg, #E0FFFF, #FF4500);
+            --glass-bg: rgba(42, 0, 77, 0.15);
+            --glass-border: rgba(255, 20, 147, 0.25);
+            --text-primary: #E0FFFF;
+            --text-secondary: rgba(224, 255, 255, 0.85);
+            --shadow-glow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            --aurora-green: #00FF7F;
+            --solar-orange: #FF4500;
+            --nova-pink: #FF1493;
+            --polar-white: #E0FFFF;
+            --deep-space: #2A004D;
+            --max-width: 1200px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-space);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        /* Cosmic Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 127, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 20, 147, 0.2) 0%, transparent 50%);
+            animation: cosmicShift 25s ease-in-out infinite;
+        }
+
+        @keyframes cosmicShift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Glowing Floating Stars */
+        .nebula-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, var(--nova-pink) 20%, transparent 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange);
+            animation: floatNebula 40s infinite linear, pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes floatNebula {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0.3; }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange); }
+            100% { box-shadow: 0 0 15px var(--aurora-green), 0 0 25px var(--nova-pink), 0 0 40px var(--solar-orange); }
+        }
+
+        /* Header */
+        .hologram-header {
+            text-align: center;
+            padding: 5vh 0;
+        }
+
+        .hologram-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            background: var(--primary-gradient);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: hologramShift 4s ease-in-out infinite;
+        }
+
+        @keyframes hologramShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hologram-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 1.5vh;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Search Bar */
+        .search-bar {
+            position: sticky;
+            top: 20px;
+            margin: 0 0 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 1vw 2vw;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            width: 100%;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Quantum Feature Grid */
+        .quantum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2vw;
+            padding: 0;
+            margin-bottom: 6vh;
+        }
+
+        .quantum-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2vw;
+            transition: all 0.4s ease;
+        }
+
+        .quantum-card:hover {
+            transform: translateY(-1vh);
+            background: rgba(42, 0, 77, 0.25);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .quantum-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: 1.5vh;
+            filter: drop-shadow(0 0 15px var(--nova-pink));
+        }
+
+        .quantum-card h3 {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+        }
+
+        .quantum-card p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Matrix Learning Path */
+        .matrix-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3vw;
+            margin: 0 0 6vh;
+        }
+
+        .matrix-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 2vh;
+        }
+
+        .matrix-path {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2vw;
+        }
+
+        .matrix-node {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+
+        .matrix-orb {
+            width: clamp(60px, 10vw, 80px);
+            height: clamp(60px, 10vw, 80px);
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
+            font-weight: bold;
+            margin: 0 auto 1.5vh;
+            box-shadow: 0 0 20px var(--aurora-green);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .matrix-orb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 25px var(--nova-pink);
+        }
+
+        .matrix-node h4 {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+        }
+
+        .matrix-node p {
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            color: var(--text-secondary);
+        }
+
+        .matrix-connector {
+            position: absolute;
+            top: 30px;
+            right: -30px;
+            width: clamp(60px, 8vw, 80px);
+            height: 2px;
+            background: var(--aurora-green);
+            animation: dataFlow 2s ease-in-out infinite;
+        }
+
+        .matrix-node:last-child .matrix-connector {
+            display: none;
+        }
+
+        @keyframes dataFlow {
+            0% { opacity: 0.3; transform: scaleX(0); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0.3; transform: scaleX(0); }
+        }
+
+        /* Cyber Stats */
+        .cyber-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2vw;
+            padding: 0;
+            margin-bottom: 6vh;
+        }
+
+        .stat-pod {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2vw;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 3vw, 3rem);
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+        }
+
+        .stat-label {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Info Containers */
+        .info-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2vw;
+            margin: 0 0 6vh;
+        }
+
+        .info-container .section-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: 1.5vh;
+            filter: drop-shadow(0 0 15px var(--nova-pink));
+        }
+
+        .info-container h3 {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+        }
+
+        .info-container p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Collapsible Toggle */
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--aurora-green);
+            cursor: pointer;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            margin-top: 1vh;
+        }
+
+        .info-container.collapsed p {
+            display: none;
+        }
+
+        /* CTA Buttons */
+        .cta-button {
+            display: inline-block;
+            padding: 1vw 2vw;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 1vh;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1vh;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--solar-orange);
+            width: 0; /* Will be updated dynamically */
+            transition: width 1s ease;
+        }
+
+        /* Testimonials */
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2vw;
+            margin-bottom: 6vh;
+        }
+
+        .testimonial-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2vw;
+            flex: 1;
+            min-width: 250px;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-1vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .testimonial-icon {
+            font-size: clamp(1.5rem, 2vw, 2rem);
+            color: var(--nova-pink);
+            margin-bottom: 1vh;
+        }
+
+        .testimonial-card p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            color: var(--text-secondary);
+            margin-bottom: 1vh;
+        }
+
+        .testimonial-author {
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Social Sharing */
+        .social-share {
+            margin-top: 1vh;
+            display: flex;
+            gap: 1vw;
+        }
+
+        .share-btn {
+            color: var(--nova-pink);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .share-btn:hover {
+            color: var(--aurora-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2vh 0;
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            margin-top: 6vh;
+        }
+
+        /* Bottom Navigation */
+        .nav-container {
+            position: fixed;
+            bottom: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1vw 2vw;
+            display: flex;
+            gap: 1vw;
+            box-shadow: var(--shadow-glow);
+            z-index: 1000;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1vw 1.5vw;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(42, 0, 77, 0.2);
+            color: var(--text-primary);
+            transform: translateY(-0.5vh);
+        }
+
+        .nav-item.active {
+            background: var(--secondary-gradient);
+            color: var(--text-primary);
+        }
+
+        .nav-icon {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            margin-bottom: 0.5vh;
+        }
+
+        /* Scroll Animations */
+        @keyframes slideUpSection {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .section-animated {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section-animated.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .quantum-grid, .cyber-stats, .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix-path {
+                flex-direction: column;
+            }
+
+            .matrix-connector {
+                display: none;
+            }
+
+            .search-bar {
+                padding: 2vw 3vw;
+            }
+
+            .info-container .section-icon,
+            .quantum-icon {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                padding: 1vw;
+                gap: 0.5vw;
+                bottom: 1vh;
+            }
+
+            .nav-item {
+                padding: 1vw;
+                font-size: 0.7rem;
+            }
+
+            .nav-icon {
+                font-size: 1rem;
+            }
+
+            .hologram-title {
+                font-size: 2rem;
+            }
+
+            .social-share {
+                flex-direction: column;
+                gap: 1vh;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(42, 0, 77, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--nova-pink);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--solar-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg" data-parallax="0.5"></div>
+    <div class="nebula-field" id="nebulaField"></div>
+    <main class="main-content">
+        <div class="container">
+            <header class="hologram-header">
+                <h1 class="hologram-title">Cyber Wiki</h1>
+                <p class="hologram-subtitle">Enter the realm of cybersecurity mastery</p>
+            </header>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search Cyber Wiki..." aria-label="Search cybersecurity content">
+            </div>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-star"></i></span>
+                <h3>Welcome/Overview</h3>
+                <p>Welcome to Cyber Wiki, your ultimate gateway to mastering cybersecurity! Dive into a universe of expert-driven content, designed to empower you from novice to expert with a seamless learning experience.</p>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-book"></i></span>
+                <h3>Learning Path Guide</h3>
+                <p>Embark on a structured journey through cybersecurity mastery. Our tailored learning paths guide you step-by-step, from foundational concepts to advanced techniques, ensuring you’re always progressing.</p>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/learning" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/learning" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-newspaper"></i></span>
+                <h3>Recent Updates</h3>
+                <p>Stay ahead of the curve with the latest cybersecurity news! Get updates on vulnerabilities, patches, and trends shaping the industry as of <span id="update-time">11:19 AM WAT, July 02, 2025</span>.</p>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/updates" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/updates" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-thumbtack"></i></span>
+                <h3>Quick Reference Cards</h3>
+                <p>Boost your efficiency with concise cheat sheets! Access quick guides for common security tasks, perfect for on-the-go learning and real-world application.</p>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/reference" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/reference" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="quantum-grid section-animated">
+                <div class="quantum-card">
+                    <span class="quantum-icon"><i class="fas fa-dna"></i></span>
+                    <h3>Neural Learning</h3>
+                    <p>Advanced curriculum that adapts to your learning patterns and accelerates mastery through structured methodology.</p>
+                </div>
+                <div class="quantum-card">
+                    <span class="quantum-icon"><i class="fas fa-bolt"></i></span>
+                    <h3>Real-Time Labs</h3>
+                    <p>Immersive sandbox environments with live threat simulations to practice in controlled scenarios.</p>
+                </div>
+                <div class="quantum-card">
+                    <span class="quantum-icon"><i class="fas fa-globe"></i></span>
+                    <h3>Deep Nexus</h3>
+                    <p>Comprehensive exploration of advanced persistent threats, zero-day exploits, and defense mechanisms.</p>
+                </div>
+                <div class="quantum-card">
+                    <span class="quantum-icon"><i class="fas fa-rocket"></i></span>
+                    <h3>Future Ready</h3>
+                    <p>Stay ahead with cryptography, AI-powered attacks, and next-generation security protocols.</p>
+                </div>
+            </section>
+            <section class="matrix-container section-animated">
+                <h2 class="matrix-title">Learning Pathway</h2>
+                <div class="matrix-path">
+                    <div class="matrix-node">
+                        <a href="fundamentals.html" class="matrix-orb" aria-label="Foundation matrix link">01</a>
+                        <div class="matrix-connector"></div>
+                        <h4>Foundation Matrix</h4>
+                        <p>Core security principles</p>
+                    </div>
+                    <div class="matrix-node">
+                        <a href="network.html" class="matrix-orb" aria-label="Network nexus link">02</a>
+                        <div class="matrix-connector"></div>
+                        <h4>Network Nexus</h4>
+                        <p>Advanced network security</p>
+                    </div>
+                    <div class="matrix-node">
+                        <a href="application.html" class="matrix-orb" aria-label="App fortress link">03</a>
+                        <div class="matrix-connector"></div>
+                        <h4>App Fortress</h4>
+                        <p>Application hardening</p>
+                    </div>
+                    <div class="matrix-node">
+                        <a href="resources.html" class="matrix-orb" aria-label="Elite arsenal link">04</a>
+                        <h4>Elite Arsenal</h4>
+                        <p>Master-level tools</p>
+                    </div>
+                </div>
+            </section>
+            <section class="cyber-stats section-animated">
+                <div class="stat-pod">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Advanced Modules</div>
+                </div>
+                <div class="stat-pod">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Live Scenarios</div>
+                </div>
+                <div class="stat-pod">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Possibilities</div>
+                </div>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-bullseye"></i></span>
+                <h3>Cyber Challenges</h3>
+                <p>Push your limits with interactive cyber challenges! Engage in Capture The Flag (CTF) simulations, ethical hacking labs, and real-world scenarios designed to sharpen your skills.</p>
+                <a href="#" class="cta-button" aria-label="Start challenge">Start Challenge</a>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/challenges" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/challenges" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-user-graduate"></i></span>
+                <h3>Expert Insights</h3>
+                <p>Gain wisdom from cybersecurity legends! Access video tutorials, live webinars, and detailed articles from industry experts on the latest threats and defenses.</p>
+                <a href="#" class="cta-button" aria-label="Watch now">Watch Now</a>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/insights" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/insights" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-users"></i></span>
+                <h3>Community Hub</h3>
+                <p>Connect with a global network of learners! Share knowledge, collaborate on projects, and grow with a vibrant cybersecurity community.</p>
+                <a href="https://chat.whatsapp.com/HOMCId07NW6CU05Y3SgMKD" class="cta-button" aria-label="Join community">Join Community</a>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/community" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/community" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-road"></i></span>
+                <h3>Tech Roadmap</h3>
+                <p>Peek into the future of cybersecurity! Discover trends like quantum encryption, AI-driven defenses, and cutting-edge protocols shaping tomorrow’s landscape.</p>
+                <a href="https://bing.com/th/id/BCO.49490635-14e7-4a28-bebd-41ea7a61b5ce.png" class="cta-button" aria-label="Explore roadmap">Explore Roadmap</a>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/roadmap" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/roadmap" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="testimonials-container section-animated">
+                <div class="testimonial-card">
+                    <span class="testimonial-icon"><i class="fas fa-quote-left"></i></span>
+                    <p>This site transformed my cybersecurity skills with its structured approach and real-world labs.</p>
+                    <div class="testimonial-author">CyberGuru99</div>
+                </div>
+                <div class="testimonial-card">
+                    <span class="testimonial-icon"><i class="fas fa-quote-left"></i></span>
+                    <p>Incredible resources that took my expertise to the next level—highly recommend!</p>
+                    <div class="testimonial-author">SecMasterX</div>
+                </div>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-trophy"></i></span>
+                <h3>Rewards</h3>
+                <p>Earn points by completing challenges and assessments across pages! Track your progress and unlock exclusive content.</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" aria-label="Progress"></div>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/rewards" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/rewards" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-question"></i></span>
+                <h3>Get Help</h3>
+                <p>Need assistance? Contact us for support or explore our FAQ. We’re here to help you succeed!</p>
+                <a href="https://wa.me/+2348128197651" class="cta-button" aria-label="Contact support">Contact Us</a>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/help" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/help" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand/Collapse</button>
+            </section>
+        </div>
+    </main>
+    <nav class="nav-container">
+        <a href="index.html" class="nav-item active"><span class="nav-icon"><i class="fas fa-home"></i></span>Home</a>
+        <a href="fundamentals.html" class="nav-item"><span class="nav-icon"><i class="fas fa-dna"></i></span>Fundamentals</a>
+        <a href="network.html" class="nav-item"><span class="nav-icon"><i class="fas fa-globe"></i></span>Network</a>
+        <a href="application.html" class="nav-item"><span class="nav-icon"><i class="fas fa-lock"></i></span>Apps</a>
+        <a href="resources.html" class="nav-item"><span class="nav-icon"><i class="fas fa-bolt"></i></span>Resources</a>
+    </nav>
+    <footer>
+        Built by Sisco | Powered by Grok
+    </footer>
+    <script>
+        // Glowing Floating Stars
+        function unleashNebulaField() {
+            const container = document.getElementById('nebulaField');
+            for (let i = 0; i < 50; i++) { // Increased to 50 for more stars
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 40 + 's';
+                star.style.animationDuration = (Math.random() * 30 + 20) + 's';
+                star.style.transform = `scale(${Math.random() * 0.7 + 0.3})`;
+                container.appendChild(star);
+            }
+        }
+
+        // Navigation
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Stats Counter Animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = stat.textContent;
+                if (target === '∞') return;
+                const number = parseInt(target.replace('+', ''));
+                let current = 0;
+                const increment = number / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= number) {
+                        current = number;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (target.includes('+') ? '+' : '');
+                }, 20);
+            });
+        }
+
+        // Matrix Orbs Interaction
+        function initMatrixOrbs() {
+            const orbs = document.querySelectorAll('.matrix-orb');
+            orbs.forEach(orb => {
+                orb.addEventListener('click', () => {
+                    orb.style.transform = 'scale(1.3)';
+                    setTimeout(() => orb.style.transform = 'scale(1)', 200);
+                });
+            });
+        }
+
+        // Search Functionality
+        function initSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const sections = document.querySelectorAll('.info-container, .quantum-card, .matrix-node, .stat-pod');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                sections.forEach(section => {
+                    const text = section.textContent.toLowerCase();
+                    section.style.display = text.includes(query) ? 'block' : 'none';
+                });
+            });
+        }
+
+        // Collapsible Sections
+        function initCollapsible() {
+            const toggles = document.querySelectorAll('.toggle-btn');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const container = toggle.parentElement;
+                    container.classList.toggle('collapsed');
+                    toggle.textContent = container.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+                });
+            });
+        }
+
+        // Dynamic Date Stamp
+        function updateTime() {
+            const timeElement = document.getElementById('update-time');
+            if (timeElement) {
+                timeElement.textContent = '11:19 AM WAT, July 02, 2025';
+            }
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section-animated');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Parallax Effect
+        function initParallax() {
+            const bg = document.querySelector('.cosmic-bg');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                bg.style.transform = `translateY(${scrollY * 0.5}px)`;
+            });
+        }
+
+        // Rewards System
+        function updateRewards() {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            const progressFill = document.getElementById('progressFill');
+            progress = Math.min(100, parseInt(progress) || 0); // Cap at 100%
+            progressFill.style.width = `${progress}%`;
+            if (progress >= 100) {
+                alert('Congratulations! You’ve unlocked all rewards!');
+            }
+        }
+
+        // Simulate progress update from other pages
+        window.addEventListener('storage', updateRewards);
+        window.addEventListener('load', updateRewards);
+
+        // Function to add progress (call this from other pages after assessments)
+        function addProgress(points) {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            progress = parseInt(progress) + points;
+            localStorage.setItem('cyberProgress', progress);
+            updateRewards();
+        }
+
+        // Initialize
+        function init() {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    unleashNebulaField();
+                    initNavigation();
+                    animateStats();
+                    initMatrixOrbs();
+                    initSearch();
+                    initCollapsible();
+                    updateTime();
+                    initScrollAnimations();
+                    initParallax();
+                    updateRewards();
+                });
+            } else {
+                unleashNebulaField();
+                initNavigation();
+                animateStats();
+                initMatrixOrbs();
+                initSearch();
+                initCollapsible();
+                updateTime();
+                initScrollAnimations();
+                initParallax();
+                updateRewards();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

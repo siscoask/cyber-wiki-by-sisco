@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore network security essentials including firewalls, VPNs, IDS/IPS, and protocols with Cyber Wiki’s interactive, detailed lessons.">
+    <meta name="keywords" content="network security, firewalls, VPNs, IDS, IPS, network protocols, cybersecurity">
+    <meta name="author" content="Sisco">
+    <title>Cyber Wiki - Network Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00FF7F 0%, #FF4500 50%, #FF1493 100%);
+            --secondary-gradient: linear-gradient(45deg, #E0FFFF, #FF4500);
+            --glass-bg: rgba(42, 0, 77, 0.15);
+            --glass-border: rgba(255, 20, 147, 0.25);
+            --text-primary: #E0FFFF;
+            --text-secondary: rgba(224, 255, 255, 0.85);
+            --shadow-glow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            --aurora-green: #00FF7F;
+            --solar-orange: #FF4500;
+            --nova-pink: #FF1493;
+            --polar-white: #E0FFFF;
+            --deep-space: #2A004D;
+            --max-width: 1200px;
+            --note-gradient: linear-gradient(90deg, #00FF7F, #FF4500, #FF1493);
+            --quiz-bg: rgba(42, 0, 77, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-space);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 90%;
+            padding: 2vh 0;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 127, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 20, 147, 0.2) 0%, transparent 50%);
+            animation: cosmicShift 25s ease-in-out infinite;
+        }
+
+        @keyframes cosmicShift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nebula-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, var(--nova-pink) 20%, transparent 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange);
+            animation: floatNebula 40s infinite linear, pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes floatNebula {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0.3; }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange); }
+            100% { box-shadow: 0 0 15px var(--aurora-green), 0 0 25px var(--nova-pink), 0 0 40px var(--solar-orange); }
+        }
+
+        .hologram-header {
+            text-align: center;
+            padding: 5vh 0;
+        }
+
+        .hologram-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            background: var(--primary-gradient);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: hologramShift 4s ease-in-out infinite;
+        }
+
+        @keyframes hologramShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hologram-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 1.5vh;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-bar {
+            position: sticky;
+            top: 20px;
+            margin: 0 0 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 1vw 2vw;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            width: 100%;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .info-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2vw;
+            margin: 0 0 6vh;
+            transition: transform 0.3s ease;
+        }
+
+        .info-container:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .info-container .section-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: 1.5vh;
+            filter: drop-shadow(0 0 15px var(--nova-pink));
+            animation: iconPulse 2s infinite alternate;
+        }
+
+        @keyframes iconPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .info-container h3 {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+            text-shadow: 0 0 10px var(--aurora-green);
+        }
+
+        .info-container p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1vh;
+        }
+
+        .lesson-content {
+            margin-top: 1vh;
+            padding-left: 2vw;
+        }
+
+        .lesson-content h4 {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: var(--text-primary);
+            margin: 1.5vh 0 1vh;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textFade 2s infinite alternate;
+        }
+
+        @keyframes textFade {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        .note-box {
+            background: var(--note-gradient);
+            background-size: 200% 200%;
+            padding: 1vw;
+            border-radius: 10px;
+            margin: 1.5vh 0;
+            color: var(--polar-white);
+            font-style: italic;
+            animation: noteGlow 4s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--nova-pink);
+        }
+
+        @keyframes noteGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--nova-pink); }
+            50% { box-shadow: 0 0 20px var(--aurora-green); }
+        }
+
+        pre {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1vw;
+            border-radius: 10px;
+            color: var(--text-primary);
+            overflow-x: auto;
+            font-family: 'Inter', monospace;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            margin: 1vh 0;
+            animation: codeBlink 3s infinite alternate;
+        }
+
+        @keyframes codeBlink {
+            from { border-color: var(--glass-border); }
+            to { border-color: var(--aurora-green); }
+        }
+
+        code {
+            font-family: 'Inter', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            margin: 1.5vh 0;
+            animation: tableFade 2s ease-in-out infinite;
+        }
+
+        @keyframes tableFade {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        th, td {
+            padding: 1vw;
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        th {
+            background: rgba(42, 0, 77, 0.25);
+            color: var(--text-primary);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--aurora-green);
+            cursor: pointer;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            margin-top: 1vh;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            color: var(--solar-orange);
+        }
+
+        .info-container.collapsed .lesson-content,
+        .info-container.collapsed p:not(.intro) {
+            display: none;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1vw 2vw;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .social-share {
+            margin-top: 1vh;
+            display: flex;
+            gap: 1vw;
+        }
+
+        .share-btn {
+            color: var(--nova-pink);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .share-btn:hover {
+            color: var(--aurora-green);
+            transform: scale(1.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 1.5vh;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1.5vh;
+            box-shadow: 0 0 5px var(--nova-pink);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--solar-orange);
+            width: 0;
+            transition: width 1s ease;
+            border-radius: 10px;
+            animation: progressGlow 2s infinite alternate;
+        }
+
+        @keyframes progressGlow {
+            from { box-shadow: 0 0 5px var(--solar-orange); }
+            to { box-shadow: 0 0 15px var(--aurora-green); }
+        }
+
+        .nav-container {
+            position: fixed;
+            bottom: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1vw 2vw;
+            display: flex;
+            gap: 1vw;
+            box-shadow: var(--shadow-glow);
+            z-index: 1000;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1vw 1.5vw;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(42, 0, 77, 0.2);
+            color: var(--text-primary);
+            transform: translateY(-0.5vh);
+        }
+
+        .nav-item.active {
+            background: var(--secondary-gradient);
+            color: var(--text-primary);
+        }
+
+        .nav-icon {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            margin-bottom: 0.5vh;
+        }
+
+        .section-animated {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section-animated.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quiz-container {
+            margin: 2vh 0;
+        }
+
+        .quiz-container h4 {
+            font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1.5vh;
+            text-align: center;
+            background: var(--primary-gradient);
+             -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .quiz-question {
+            background: var(--quiz-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5vw;
+            margin-bottom: 1.5vh;
+            animation: quizFade 2s infinite alternate;
+        }
+
+        @keyframes quizFade {
+            from { box-shadow: 0 0 5px var(--nova-pink); }
+            to { box-shadow: 0 0 15px var(--aurora-green); }
+        }
+
+        .quiz-question p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            margin-bottom: 1vh;
+            color: var(--text-secondary);
+        }
+
+        .quiz-answer {
+            width: 100%;
+            padding: 0.8vw;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: rgba(42, 0, 77, 0.1);
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.1vw, 1rem);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .quiz-answer:focus {
+            border-color: var(--aurora-green);
+            box-shadow: 0 0 10px var(--aurora-green);
+        }
+
+        .quiz-answer.correct {
+            border-color: var(--aurora-green);
+            background: rgba(0, 255, 127, 0.1);
+        }
+
+        .quiz-answer.incorrect {
+            border-color: var(--solar-orange);
+            background: rgba(255, 69, 0, 0.1);
+        }
+
+        .quiz-feedback {
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            margin-top: 0.5vh;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .search-bar {
+                padding: 2vw 3vw;
+            }
+
+            .info-container .section-icon {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                padding: 1vw;
+                gap: 0.5vw;
+                bottom: 1vh;
+            }
+
+            .nav-item {
+                padding: 1vw;
+                font-size: 0.7rem;
+            }
+
+            .nav-icon {
+                font-size: 1rem;
+            }
+
+            .hologram-title {
+                font-size: 2rem;
+            }
+
+            .social-share {
+                flex-direction: column;
+                gap: 1vh;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            .note-box {
+                font-size: 0.9rem;
+            }
+
+            .quiz-question {
+                padding: 2vw;
+            }
+
+            .quiz-answer {
+                font-size: 0.9rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(42, 0, 77, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--nova-pink);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--solar-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="nebula-field" id="nebulaField"></div>
+    <main class="main-content">
+        <div class="container">
+            <header class="hologram-header">
+                <h1 class="hologram-title">Network Security Nexus</h1>
+                <p class="hologram-subtitle">Master network defense with cutting-edge, detailed lessons</p>
+            </header>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search Network Security..." aria-label="Search network security content">
+            </div>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-network-wired"></i></span>
+                <h3>Network Security Basics</h3>
+                <p class="intro">Understand the foundational principles of securing networks against a wide array of cyber threats, ensuring robust defense mechanisms are in place.</p>
+                <div class="lesson-content">
+                    <h4>Key Concepts</h4>
+                    <p>Network security hinges on three core principles: segmentation, monitoring, and protection. Segmentation uses Virtual Local Area Networks (VLANs) to isolate traffic, reducing the attack surface by confining breaches to specific segments. Monitoring involves real-time traffic analysis with tools like Wireshark to detect anomalies or unauthorized access attempts. Protection employs layered defenses such as firewalls and intrusion detection systems to safeguard data in transit and at rest.</p>
+                    <ul>
+                        <li><strong>Segmentation</strong>: Divides networks into VLANs to limit lateral movement of threats, enhancing isolation (e.g., separating guest Wi-Fi from corporate networks).</li>
+                        <li><strong>Monitoring</strong>: Utilizes packet analyzers like Wireshark to capture and inspect network traffic, identifying patterns or malicious activities.</li>
+                        <li><strong>Protection</strong>: Implements firewalls, encryption, and access controls to shield networks from external and internal threats.</li>
+                    </ul>
+                    <pre>sudo tcpdump -i eth0 -w capture.pcap</pre>
+                    <button class="cta-button" data-clipboard-text="sudo tcpdump -i eth0 -w capture.pcap">Copy Command</button>
+                    <div class="note-box">💡 Tip: Regularly review VLAN configurations and monitor logs to detect segmentation bypass attempts!</div>
+                    <h4>Threats</h4>
+                    <p>Networks face diverse threats that require proactive mitigation. Man-in-the-Middle (MITM) attacks intercept communications, often exploiting unsecured Wi-Fi. Distributed Denial of Service (DDoS) attacks overwhelm servers with traffic, as seen in the 2016 Dyn attack affecting major sites. Unauthorized access occurs when credentials are compromised, necessitating strong authentication measures.</p>
+                    <ul>
+                        <li>Man-in-the-Middle (MITM): Intercepts data by spoofing network devices.</li>
+                        <li>Distributed Denial of Service (DDoS): Floods networks to disrupt services, often using botnets.</li>
+                        <li>Unauthorized Access: Results from weak passwords or phishing, allowing intruders entry.</li>
+                    </ul>
+                    <table>
+                        <tr><th>Threat</th><th>Impact</th><th>Mitigation</th></tr>
+                        <tr><td>MITM</td><td>Data interception, potential theft</td><td>Implement TLS 1.3 encryption and certificate pinning</td></tr>
+                        <tr><td>DDoS</td><td>Service downtime, financial loss</td><td>Deploy cloud-based DDoS mitigation services like Cloudflare</td></tr>
+                        <tr><td>Unauthorized</td><td>Data breach, system compromise</td><td>Enforce multi-factor authentication (MFA)</td></tr>
+                    </table>
+                    <h4>Real-World Case</h4>
+                    <p>The 2016 Dyn DDoS attack, powered by the Mirai botnet, disrupted services for Twitter, Netflix, and others, highlighting the need for robust traffic management and redundancy.</p>
+                    <div class="note-box">🌐 Fun Fact: The attack leveraged over 100,000 IoT devices, underscoring the growing threat from unsecured smart devices!</div>
+                </div>
+                <div class="quiz-container" id="quiz-network-basics">
+                    <button class="cta-button" onclick="showQuiz('network-basics')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/network/basics" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/network/basics" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-fire"></i></span>
+                <h3>Firewalls</h3>
+                <p class="intro">Firewalls serve as the first line of defense, filtering traffic to protect networks from unauthorized access and attacks.</p>
+                <div class="lesson-content">
+                    <h4>Types</h4>
+                    <p>Firewalls vary in complexity and capability. Packet Filtering firewalls operate at the network layer, applying rules based on IP addresses and ports. Stateful Inspection firewalls maintain connection states, enhancing security by tracking active sessions. Next-Generation Firewalls (NGFW) integrate intrusion prevention, application awareness, and deep packet inspection for advanced threat detection.</p>
+                    <ul>
+                        <li><strong>Packet Filtering</strong>: Filters traffic using static rules (e.g., allowing port 80 for HTTP).</li>
+                        <li><strong>Stateful Inspection</strong>: Tracks connection states to block unauthorized responses, improving security against spoofing.</li>
+                        <li><strong>Next-Generation</strong>: Combines traditional filtering with AI-driven threat intelligence and user identity awareness.</li>
+                    </ul>
+                    <pre>iptables -A INPUT -p tcp --dport 22 -j ACCEPT -m comment --comment "Allow SSH"</pre>
+                    <button class="cta-button" data-clipboard-text="iptables -A INPUT -p tcp --dport 22 -j ACCEPT -m comment --comment \"Allow SSH\"">Copy Command</button>
+                    <div class="note-box">💡 Tip: Add comments to iptables rules for easier maintenance and auditing!</div>
+                    <h4>Configuration</h4>
+                    <p>Configuring firewalls involves defining rules with tools like `iptables` or `ufw`. For example, `ufw` simplifies rule management on Ubuntu, while `iptables` offers granular control on any Linux distribution. Regularly test rules to ensure they align with security policies.</p>
+                    <pre>sudo ufw allow 443/tcp comment 'Allow HTTPS'</pre>
+                    <button class="cta-button" data-clipboard-text="sudo ufw allow 443/tcp comment \'Allow HTTPS\'">Copy Command</button>
+                    <h4>Real-World Case</h4>
+                    <p>The 2013 Target breach occurred due to misconfigured firewalls that failed to block access from a third-party vendor’s network, leading to a $10 million loss and reputational damage.</p>
+                    <div class="note-box">⚠️ Warning: Regularly audit firewall configurations to prevent overlooked vulnerabilities!</div>
+                </div>
+                <div class="quiz-container" id="quiz-firewalls">
+                    <button class="cta-button" onclick="showQuiz('firewalls')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/network/firewalls" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/network/firewalls" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-lock"></i></span>
+                <h3>VPNs</h3>
+                <p class="intro">Virtual Private Networks (VPNs) secure remote access and data transmission over public networks.</p>
+                <div class="lesson-content">
+                    <h4>Basics</h4>
+                    <p>VPNs create encrypted tunnels using protocols like IPsec, which provides security through authentication and encryption, or OpenVPN, an open-source solution offering flexibility and strong encryption. Configuration involves setting up a VPN server and client, often using certificates for authentication.</p>
+                    <ul>
+                        <li><strong>IPsec</strong>: Uses the Internet Key Exchange (IKE) protocol for secure key management and data encryption.</li>
+                        <li><strong>OpenVPN</strong>: Leverages SSL/TLS for encrypted tunnels, ideal for cross-platform use.</li>
+                    </ul>
+                    <pre>openvpn --config client.ovpn --auth-user-pass</pre>
+                    <button class="cta-button" data-clipboard-text="openvpn --config client.ovpn --auth-user-pass">Copy Command</button>
+                    <div class="note-box">💡 Tip: Use multi-factor authentication with VPNs to enhance security against credential theft!</div>
+                    <h4>Benefits</h4>
+                    <p>VPNs offer privacy by masking IP addresses, enable secure remote work by connecting corporate networks, and ensure data transfer integrity over untrusted networks like public Wi-Fi.</p>
+                    <h4>Real-World Case</h4>
+                    <p>In 2020, Zoom faced vulnerabilities exposing meeting data; organizations mitigated this by enforcing VPN usage, reducing exposure by over 80% according to security reports.</p>
+                    <div class="note-box">🌐 Fun Fact: VPN traffic increased by 40% globally during the 2020 pandemic due to remote work demands!</div>
+                </div>
+                <div class="quiz-container" id="quiz-vpns">
+                    <button class="cta-button" onclick="showQuiz('vpns')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/network/vpns" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/network/vpns" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-shield-alt"></i></span>
+                <h3>IDS/IPS</h3>
+                <p class="intro">Intrusion Detection Systems (IDS) and Intrusion Prevention Systems (IPS) provide critical network monitoring and active defense.</p>
+                <div class="lesson-content">
+                    <h4>Difference</h4>
+                    <p>IDS passively monitors network traffic, logging suspicious activities for analysis using signature-based or anomaly-based detection. IPS actively blocks threats by dropping packets or resetting connections, often integrated with firewalls for real-time protection.</p>
+                    <table>
+                        <tr><th>System</th><th>Function</th><th>Example</th></tr>
+                        <tr><td>IDS</td><td>Monitors and alerts on anomalies</td><td>Snort with rule sets</td></tr>
+                        <tr><td>IPS</td><td>Blocks malicious traffic in real-time</td><td>Suricata with inline mode</td></tr>
+                    </table>
+                    <pre>snort -c /etc/snort/snort.conf -i eth0 -A console</pre>
+                    <button class="cta-button" data-clipboard-text="snort -c /etc/snort/snort.conf -i eth0 -A console">Copy Command</button>
+                    <div class="note-box">💡 Tip: Combine IDS and IPS with regular rule updates for comprehensive coverage!</div>
+                    <h4>Real-World Case</h4>
+                    <p>The 2011 Sony PlayStation Network breach, costing $171 million, could have been mitigated with an IDS to detect early unauthorized access attempts.</p>
+                    <div class="note-box">⚠️ Warning: Unmonitored networks are 70% more likely to suffer undetected breaches!</div>
+                </div>
+                <div class="quiz-container" id="quiz-ids-ips">
+                    <button class="cta-button" onclick="showQuiz('ids-ips')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/network/ids-ips" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/network/ids-ips" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-exchange-alt"></i></span>
+                <h3>Network Protocols</h3>
+                <p class="intro">Secure communication protocols ensure data integrity and confidentiality across networks.</p>
+                <div class="lesson-content">
+                    <h4>Secure Protocols</h4>
+                    <p>Transport Layer Security (TLS) and its predecessor SSL encrypt web traffic, widely used in HTTPS. Secure Shell (SSH) provides encrypted remote access, supporting key-based authentication. IPsec secures IP communications, forming the backbone of VPNs with its Authentication Header (AH) and Encapsulating Security Payload (ESP) protocols.</p>
+                    <ul>
+                        <li><strong>TLS/SSL</strong>: Ensures end-to-end encryption for web and email, with TLS 1.3 offering improved performance.</li>
+                        <li><strong>SSH</strong>: Enables secure file transfers (e.g., SCP) and remote command execution.</li>
+                        <li><strong>IPsec</strong>: Supports site-to-site VPNs with robust encryption and integrity checks.</li>
+                    </ul>
+                    <pre>ssh -i ~/.ssh/id_rsa user@remote_host -p 2222</pre>
+                    <button class="cta-button" data-clipboard-text="ssh -i ~/.ssh/id_rsa user@remote_host -p 2222">Copy Command</button>
+                    <div class="note-box">💡 Tip: Use unique port numbers with SSH to deter automated attacks!</div>
+                    <h4>Real-World Case</h4>
+                    <p>The 2017 Equifax breach exposed 147 million records due to unencrypted data transfers, emphasizing the need for secure protocols like TLS.</p>
+                    <div class="note-box">⚠️ Warning: Unencrypted protocols increase exposure by 90% in data breach scenarios!</div>
+                </div>
+                <div class="quiz-container" id="quiz-protocols">
+                    <button class="cta-button" onclick="showQuiz('protocols')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/network/protocols" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/network/protocols" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-trophy"></i></span>
+                <h3>Progress</h3>
+                <p class="intro">Track your journey and earn rewards as you master network security!</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" aria-label="Progress"></div>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/network" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/network" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </section>
+        </div>
+    </main>
+    <nav class="nav-container">
+        <a href="index.html" class="nav-item"><span class="nav-icon"><i class="fas fa-home"></i></span>Home</a>
+        <a href="fundamentals.html" class="nav-item"><span class="nav-icon"><i class="fas fa-dna"></i></span>Fundamentals</a>
+        <a href="network.html" class="nav-item active"><span class="nav-icon"><i class="fas fa-globe"></i></span>Network</a>
+        <a href="application.html" class="nav-item"><span class="nav-icon"><i class="fas fa-lock"></i></span>Apps</a>
+        <a href="resources.html" class="nav-item"><span class="nav-icon"><i class="fas fa-bolt"></i></span>Resources</a>
+    </nav>
+    <script>
+        // Glowing Floating Stars
+        function unleashNebulaField() {
+            const container = document.getElementById('nebulaField');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 40 + 's';
+                star.style.animationDuration = (Math.random() * 30 + 20) + 's';
+                star.style.transform = `scale(${Math.random() * 0.7 + 0.3})`;
+                container.appendChild(star);
+            }
+        }
+
+        // Navigation
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentPage = window.location.pathname.split('/').pop() || 'network.html';
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Search Functionality
+        function initSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const sections = document.querySelectorAll('.info-container');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                sections.forEach(section => {
+                    const text = section.textContent.toLowerCase();
+                    section.style.display = text.includes(query) ? 'block' : 'none';
+                });
+            });
+        }
+
+        // Collapsible Sections
+        function initCollapsible() {
+            const toggles = document.querySelectorAll('.toggle-btn');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const container = toggle.parentElement;
+                    container.classList.toggle('collapsed');
+                    toggle.textContent = container.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+                });
+            });
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section-animated');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Parallax Effect
+        function initParallax() {
+            const bg = document.querySelector('.cosmic-bg');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                bg.style.transform = `translateY(${scrollY * 0.5}px)`;
+            });
+        }
+
+        // Rewards System
+        function updateRewards() {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            const progressFill = document.getElementById('progressFill');
+            progress = Math.min(100, parseInt(progress) || 0);
+            progressFill.style.width = `${progress}%`;
+            if (progress >= 100) {
+                alert('Congratulations! You’ve unlocked all rewards!');
+            }
+        }
+
+        function addProgress(points) {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            progress = parseInt(progress) + points;
+            localStorage.setItem('cyberProgress', progress);
+            updateRewards();
+        }
+
+        // Clipboard Functionality
+        function initClipboard() {
+            const buttons = document.querySelectorAll('[data-clipboard-text]');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.getAttribute('data-clipboard-text');
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    try {
+                        document.execCommand('copy');
+                        button.textContent = 'Copied!';
+                        setTimeout(() => { button.textContent = 'Copy Command'; }, 2000);
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        alert('Copy failed. Please copy manually.');
+                    }
+                    document.body.removeChild(tempInput);
+                });
+            });
+        }
+
+        // Quiz System
+        function showQuiz(topic) {
+            const quizzes = {
+                'network-basics': [
+                    { q: 'What isolates network segments?', a: 'VLANs' },
+                    { q: 'Which tool monitors traffic?', a: 'Wireshark' },
+                    { q: 'What mitigates MITM?', a: 'Encryption' },
+                    { q: 'What defends against DDoS?', a: 'Rate limiting' },
+                    { q: 'What prevents unauthorized access?', a: 'ACLs' }
+                ],
+                'firewalls': [
+                    { q: 'What filters basic packets?', a: 'Packet Filtering' },
+                    { q: 'What tracks connection states?', a: 'Stateful Inspection' },
+                    { q: 'What adds intrusion prevention?', a: 'Next-Generation' },
+                    { q: 'Which command allows port 22?', a: 'iptables -A INPUT -p tcp --dport 22 -j ACCEPT -m comment --comment \\"Allow SSH\\"' },
+                    { q: 'What caused the Target 2013 breach?', a: 'Weak firewall rules' }
+                ],
+                'vpns': [
+                    { q: 'What encrypts VPN traffic?', a: 'IPsec' },
+                    { q: 'Which is an open-source VPN?', a: 'OpenVPN' },
+                    { q: 'What benefits remote work?', a: 'VPNs' },
+                    { q: 'What mitigated Zoom 2020 issues?', a: 'VPNs' },
+                    { q: 'What’s a VPN command example?', a: 'openvpn --config client.ovpn --auth-user-pass' }
+                ],
+                'ids-ips': [
+                    { q: 'What does IDS do?', a: 'Monitors' },
+                    { q: 'What does IPS do?', a: 'Blocks' },
+                    { q: 'Which tool is an IDS?', a: 'Snort' },
+                    { q: 'Which tool is an IPS?', a: 'Suricata' },
+                    { q: 'What could’ve helped Sony 2011?', a: 'IDS' }
+                ],
+                'protocols': [
+                    { q: 'What encrypts web traffic?', a: 'TLS/SSL' },
+                    { q: 'What secures remote access?', a: 'SSH' },
+                    { q: 'What secures IP communications?', a: 'IPsec' },
+                    { q: 'What’s an SSH command example?', a: 'ssh -i ~/.ssh/id_rsa user@remote_host -p 2222' },
+                    { q: 'What exposed data in Equifax 2017?', a: 'Unencrypted protocols' }
+                ]
+            };
+            const quiz = quizzes[topic];
+            const container = document.getElementById(`quiz-${topic}`);
+            if (!container) {
+                console.error(`Container for ${topic} not found.`);
+                return;
+            }
+
+            // Clear previous content
+            container.innerHTML = '';
+
+            // Create quiz form using DOM methods
+            const heading = document.createElement('h4');
+            heading.textContent = 'Quiz Time!';
+            container.appendChild(heading);
+
+            const form = document.createElement('form');
+            form.className = 'quiz-form';
+            form.id = `quiz-form-${topic}`;
+
+            quiz.forEach((q, i) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+
+                const questionP = document.createElement('p');
+                questionP.textContent = `${i + 1}. ${q.q}`;
+                questionDiv.appendChild(questionP);
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'quiz-answer';
+                input.dataset.index = i;
+                input.placeholder = 'Your answer';
+                input.required = true;
+                questionDiv.appendChild(input);
+
+                const feedback = document.createElement('p');
+                feedback.className = 'quiz-feedback';
+                questionDiv.appendChild(feedback);
+
+                form.appendChild(questionDiv);
+            });
+
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.className = 'cta-button';
+            submitButton.textContent = 'Submit';
+            submitButton.disabled = true; // Initially disabled
+            form.appendChild(submitButton);
+
+            container.appendChild(form);
+
+            // Enable/disable submit button based on input
+            const inputs = form.querySelectorAll('.quiz-answer');
+            const checkInputs = () => {
+                const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+                submitButton.disabled = !allFilled;
+            };
+            inputs.forEach(input => input.addEventListener('input', checkInputs));
+
+            // Attach submit event listener
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                submitQuiz(topic, form, quiz);
+            });
+        }
+
+        function submitQuiz(topic, form, quiz) {
+            if (!form || !quiz) {
+                console.error(`Invalid form or quiz data for ${topic}`);
+                return;
+            }
+
+            const answers = form.querySelectorAll('.quiz-answer');
+            const correctAnswers = quiz.map(q => q.a.toLowerCase());
+            let score = 0;
+
+            if (answers.length !== correctAnswers.length) {
+                console.warn(`Mismatch in answer count for ${topic}: expected ${correctAnswers.length}, got ${answers.length}`);
+            }
+
+            answers.forEach((input, i) => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = correctAnswers[i];
+                const feedback = input.nextElementSibling;
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    input.classList.add('correct');
+                    feedback.textContent = 'Correct!';
+                    feedback.style.color = 'var(--aurora-green)';
+                } else {
+                    input.classList.add('incorrect');
+                    feedback.textContent = `Incorrect. Correct answer: ${quiz[i].a}`;
+                    feedback.style.color = 'var(--solar-orange)';
+                }
+                input.disabled = true;
+            });
+
+            addProgress(score * 5);
+
+            const result = document.createElement('p');
+            result.textContent = `Score: ${score}/${quiz.length}`;
+            form.appendChild(result);
+
+            const retryButton = document.createElement('button');
+            retryButton.className = 'cta-button';
+            retryButton.textContent = 'Retry';
+            retryButton.onclick = () => showQuiz(topic);
+            form.appendChild(retryButton);
+
+            form.querySelector('button[type="submit"]').remove();
+        }
+
+        // Initialize
+        function init() {
+            unleashNebulaField();
+            initNavigation();
+            initSearch();
+            initCollapsible();
+            initScrollAnimations();
+            initParallax();
+            updateRewards();
+            initClipboard();
+        }
+
+        // Run init when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        window.addEventListener('storage', updateRewards);
+        window.addEventListener('load', updateRewards);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master foundational cybersecurity concepts including CIA Triad, Threat Modeling, Risk Assessment, Cryptography Basics, and Security Frameworks with Cyber Wiki’s in-depth, engaging lessons.">
+    <meta name="keywords" content="CIA Triad, threat modeling, risk assessment, cryptography, security frameworks, cybersecurity fundamentals">
+    <meta name="author" content="Sisco">
+    <title>Cyber Wiki - Fundamentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00FF7F 0%, #FF4500 50%, #FF1493 100%);
+            --secondary-gradient: linear-gradient(45deg, #E0FFFF, #FF4500);
+            --glass-bg: rgba(42, 0, 77, 0.15);
+            --glass-border: rgba(255, 20, 147, 0.25);
+            --text-primary: #E0FFFF;
+            --text-secondary: rgba(224, 255, 255, 0.85);
+            --shadow-glow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            --aurora-green: #00FF7F;
+            --solar-orange: #FF4500;
+            --nova-pink: #FF1493;
+            --polar-white: #E0FFFF;
+            --deep-space: #2A004D;
+            --max-width: 1200px;
+            --note-gradient: linear-gradient(90deg, #00FF7F, #FF4500, #FF1493);
+            --quiz-bg: rgba(42, 0, 77, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-space);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 90%;
+            padding: 2vh 0;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 127, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 20, 147, 0.2) 0%, transparent 50%);
+            animation: cosmicShift 25s ease-in-out infinite;
+        }
+
+        @keyframes cosmicShift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nebula-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, var(--nova-pink) 20%, transparent 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange);
+            animation: floatNebula 40s infinite linear, pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes floatNebula {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0.3; }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px var(--aurora-green), 0 0 20px var(--nova-pink), 0 0 30px var(--solar-orange); }
+            100% { box-shadow: 0 0 15px var(--aurora-green), 0 0 25px var(--nova-pink), 0 0 40px var(--solar-orange); }
+        }
+
+        .hologram-header {
+            text-align: center;
+            padding: 5vh 0;
+        }
+
+        .hologram-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            background: var(--primary-gradient);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramShift 4s ease-in-out infinite;
+        }
+
+        @keyframes hologramShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hologram-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 1.5vh;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-bar {
+            position: sticky;
+            top: 20px;
+            margin: 0 0 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 1vw 2vw;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            width: 100%;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .info-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2vw;
+            margin: 0 0 6vh;
+            transition: transform 0.3s ease;
+        }
+
+        .info-container:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .info-container .section-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: 1.5vh;
+            filter: drop-shadow(0 0 15px var(--nova-pink));
+            animation: iconPulse 2s infinite alternate;
+        }
+
+        @keyframes iconPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .info-container h3 {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1vh;
+            text-shadow: 0 0 10px var(--aurora-green);
+        }
+
+        .info-container p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1vh;
+        }
+
+        .lesson-content {
+            margin-top: 1vh;
+            padding-left: 2vw;
+        }
+
+        .lesson-content h4 {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: var(--text-primary);
+            margin: 1.5vh 0 1vh;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textFade 2s infinite alternate;
+        }
+
+        @keyframes textFade {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        .note-box {
+            background: var(--note-gradient);
+            background-size: 200% 200%;
+            padding: 1vw;
+            border-radius: 10px;
+            margin: 1.5vh 0;
+            color: var(--polar-white);
+            font-style: italic;
+            animation: noteGlow 4s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--nova-pink);
+        }
+
+        @keyframes noteGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--nova-pink); }
+            50% { box-shadow: 0 0 20px var(--aurora-green); }
+        }
+
+        pre {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1vw;
+            border-radius: 10px;
+            color: var(--text-primary);
+            overflow-x: auto;
+            font-family: 'Inter', monospace;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            margin: 1vh 0;
+            animation: codeBlink 3s infinite alternate;
+        }
+
+        @keyframes codeBlink {
+            from { border-color: var(--glass-border); }
+            to { border-color: var(--aurora-green); }
+        }
+
+        code {
+            font-family: 'Inter', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            margin: 1.5vh 0;
+            animation: tableFade 2s ease-in-out infinite;
+        }
+
+        @keyframes tableFade {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        th, td {
+            padding: 1vw;
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        th {
+            background: rgba(42, 0, 77, 0.25);
+            color: var(--text-primary);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--aurora-green);
+            cursor: pointer;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            margin-top: 1vh;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            color: var(--solar-orange);
+        }
+
+        .info-container.collapsed .lesson-content,
+        .info-container.collapsed p:not(.intro) {
+            display: none;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1vw 2vw;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-0.5vh);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .social-share {
+            margin-top: 1vh;
+            display: flex;
+            gap: 1vw;
+        }
+
+        .share-btn {
+            color: var(--nova-pink);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .share-btn:hover {
+            color: var(--aurora-green);
+            transform: scale(1.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 1.5vh;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1.5vh;
+            box-shadow: 0 0 5px var(--nova-pink);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--solar-orange);
+            width: 0;
+            transition: width 1s ease;
+            border-radius: 10px;
+            animation: progressGlow 2s infinite alternate;
+        }
+
+        @keyframes progressGlow {
+            from { box-shadow: 0 0 5px var(--solar-orange); }
+            to { box-shadow: 0 0 15px var(--aurora-green); }
+        }
+
+        .nav-container {
+            position: fixed;
+            bottom: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1vw 2vw;
+            display: flex;
+            gap: 1vw;
+            box-shadow: var(--shadow-glow);
+            z-index: 1000;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1vw 1.5vw;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(42, 0, 77, 0.2);
+            color: var(--text-primary);
+            transform: translateY(-0.5vh);
+        }
+
+        .nav-item.active {
+            background: var(--secondary-gradient);
+            color: var(--text-primary);
+        }
+
+        .nav-icon {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            margin-bottom: 0.5vh;
+        }
+
+        .section-animated {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section-animated.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quiz-container {
+            margin: 2vh 0;
+        }
+
+        .quiz-container h4 {
+            font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1.5vh;
+            text-align: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .quiz-question {
+            background: var(--quiz-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5vw;
+            margin-bottom: 1.5vh;
+            animation: quizFade 2s infinite alternate;
+        }
+
+        @keyframes quizFade {
+            from { box-shadow: 0 0 5px var(--nova-pink); }
+            to { box-shadow: 0 0 15px var(--aurora-green); }
+        }
+
+        .quiz-question p {
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            margin-bottom: 1vh;
+            color: var(--text-secondary);
+        }
+
+        .quiz-answer {
+            width: 100%;
+            padding: 0.8vw;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: rgba(42, 0, 77, 0.1);
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 1.1vw, 1rem);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .quiz-answer:focus {
+            border-color: var(--aurora-green);
+            box-shadow: 0 0 10px var(--aurora-green);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .search-bar {
+                padding: 2vw 3vw;
+            }
+
+            .info-container .section-icon {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                padding: 1vw;
+                gap: 0.5vw;
+                bottom: 1vh;
+            }
+
+            .nav-item {
+                padding: 1vw;
+                font-size: 0.7rem;
+            }
+
+            .nav-icon {
+                font-size: 1rem;
+            }
+
+            .hologram-title {
+                font-size: 2rem;
+            }
+
+            .social-share {
+                flex-direction: column;
+                gap: 1vh;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            .note-box {
+                font-size: 0.9rem;
+            }
+
+            .quiz-question {
+                padding: 2vw;
+            }
+
+            .quiz-answer {
+                font-size: 0.9rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(42, 0, 77, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--nova-pink);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--solar-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg" data-parallax="0.5"></div>
+    <div class="nebula-field" id="nebulaField"></div>
+    <main class="main-content">
+        <div class="container">
+            <header class="hologram-header">
+                <h1 class="hologram-title">Fundamentals Matrix</h1>
+                <p class="hologram-subtitle">Dive into cybersecurity basics with engaging lessons</p>
+            </header>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search Fundamentals..." aria-label="Search fundamentals content">
+            </div>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-shield-alt"></i></span>
+                <h3>CIA Triad & Basic Concepts</h3>
+                <p class="intro">The CIA Triad—Confidentiality, Integrity, Availability—is the bedrock of cybersecurity, ensuring data security, accuracy, and access. Let’s explore these pillars deeply!</p>
+                <div class="lesson-content">
+                    <h4>Confidentiality</h4>
+                    <p>Restricts data access to authorized users only, using encryption and access controls.</p>
+                    <ul>
+                        <li>Prevents unauthorized disclosure (e.g., Equifax 2017 breach).</li>
+                        <li>Techniques: AES-256, RBAC.</li>
+                    </ul>
+                    <pre>openssl enc -aes-256-cbc -in data.txt -out data.enc</pre>
+                    <button class="cta-button" data-clipboard-text="openssl enc -aes-256-cbc -in data.txt -out data.enc">Copy Command</button>
+                    <div class="note-box">💡 Tip: Always use strong passwords with encryption keys!</div>
+                    <h4>Integrity</h4>
+                    <p>Ensures data remains unaltered with hashing and signatures.</p>
+                    <ul>
+                        <li>Detects tampering (e.g., SolarWinds 2020 attack).</li>
+                        <li>Tools: SHA-256, GPG.</li>
+                    </ul>
+                    <pre>sha256sum file.txt</pre>
+                    <button class="cta-button" data-clipboard-text="sha256sum file.txt">Copy Command</button>
+                    <div class="note-box">⚠️ Warning: Regularly verify hashes to catch modifications!</div>
+                    <h4>Availability</h4>
+                    <p>Guarantees system access with redundancy and protection.</p>
+                    <ul>
+                        <li>Defends against DoS (e.g., Dyn 2016 attack).</li>
+                        <li>Solutions: Load balancers, rate limiting.</li>
+                    </ul>
+                    <pre>nginx -c /etc/nginx/nginx.conf</pre>
+                    <button class="cta-button" data-clipboard-text="nginx -c /etc/nginx/nginx.conf">Copy Command</button>
+                    <div class="note-box">🌐 Fun Fact: Redundancy saved many sites during the Dyn outage!</div>
+                    <h4>Additional Concepts</h4>
+                    <p>Key principles include:</p>
+                    <ul>
+                        <li><strong>Authentication</strong>: Verifies identity (e.g., 2FA).</li>
+                        <li><strong>Authorization</strong>: Sets permissions (e.g., Active Directory).</li>
+                        <li><strong>Non-repudiation</strong>: Ensures traceability (e.g., digital signatures).</li>
+                    </ul>
+                    <table>
+                        <tr><th>Concept</th><th>Description</th><th>Example</th></tr>
+                        <tr><td>Authentication</td><td>Verifies user</td><td>2FA with Google Authenticator</td></tr>
+                        <tr><td>Authorization</td><td>Grants access</td><td>RBAC in Azure AD</td></tr>
+                        <tr><td>Non-repudiation</td><td>Proves action</td><td>PGP signatures</td></tr>
+                    </table>
+                </div>
+                <div class="quiz-container" id="quiz-cia-triad">
+                    <button class="cta-button" onclick="showQuiz('cia-triad')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/fundamentals/cia-triad" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/fundamentals/cia-triad" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-bullseye"></i></span>
+                <h3>Threat Modeling</h3>
+                <p class="intro">Threat modeling proactively identifies and mitigates risks. Dive into this critical process!</p>
+                <div class="lesson-content">
+                    <h4>STRIDE Model</h4>
+                    <p>Categories threats into six types.</p>
+                    <table>
+                        <tr><th>Threat</th><th>Description</th><th>Mitigation</th></tr>
+                        <tr><td>Spoofing</td><td>Impersonation</td><td>Strong auth</td></tr>
+                        <tr><td>Tampering</td><td>Data alteration</td><td>Hashing</td></tr>
+                        <tr><td>Repudiation</td><td>Action denial</td><td>Logging</td></tr>
+                        <tr><td>Info Disclosure</td><td>Data leak</td><td>Encryption</td></tr>
+                        <tr><td>DoS</td><td>Access disruption</td><td>Redundancy</td></tr>
+                        <tr><td>Elevation</td><td>Privilege gain</td><td>Least privilege</td></tr>
+                    </table>
+                    <div class="note-box">💡 Pro Tip: Use STRIDE to prioritize high-impact threats!</div>
+                    <h4>Process</h4>
+                    <ul>
+                        <li>Define system (e.g., web app architecture).</li>
+                        <li>Identify assets (e.g., user data).</li>
+                        <li>List threats (e.g., SQL injection).</li>
+                        <li>Prioritize risks (e.g., impact score).</li>
+                        <li>Mitigate with controls (e.g., input validation).</li>
+                    </ul>
+                    <h4>Example: Web App</h4>
+                    <p>Threat: SQL injection. Mitigation with prepared statements.</p>
+                    <pre>const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');
+stmt.run(username, password);</pre>
+                    <button class="cta-button" data-clipboard-text="const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');">Copy Code</button>
+                    <div class="note-box">⚠️ Caution: Always sanitize inputs to prevent injection!</div>
+                    <h4>Tools</h4>
+                    <ul>
+                        <li>Microsoft Threat Modeling Tool.</li>
+                        <li>OWASP Threat Dragon (open-source).</li>
+                    </ul>
+                    <h4>Real-World Case</h4>
+                    <p>Twitter 2020 hack: Weak auth exploited via social engineering.</p>
+                    <div class="note-box">🌐 Fun Fact: Threat modeling could’ve prevented this breach!</div>
+                </div>
+                <div class="quiz-container" id="quiz-threat-modeling">
+                    <button class="cta-button" onclick="showQuiz('threat-modeling')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/fundamentals/threat-modeling" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/fundamentals/threat-modeling" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-balance-scale"></i></span>
+                <h3>Risk Assessment</h3>
+                <p class="intro">Risk assessment evaluates threats to prioritize security. Let’s break it down!</p>
+                <div class="lesson-content">
+                    <h4>Steps</h4>
+                    <ul>
+                        <li>Identify assets (e.g., databases).</li>
+                        <li>Assess threats (e.g., ransomware).</li>
+                        <li>Evaluate likelihood and impact.</li>
+                        <li>Calculate score (Likelihood × Impact).</li>
+                        <li>Plan mitigation (e.g., backups).</li>
+                    </ul>
+                    <h4>Risk Matrix</h4>
+                    <table>
+                        <tr><th>Likelihood/Impact</th><th>Low</th><th>Medium</th><th>High</th><th>Critical</th></tr>
+                        <tr><td>Low</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                        <tr><td>Medium</td><td>2</td><td>4</td><td>6</td><td>8</td></tr>
+                        <tr><td>High</td><td>3</td><td>6</td><td>9</td><td>12</td></tr>
+                        <tr><td>Critical</td><td>4</td><td>8</td><td>12</td><td>16</td></tr>
+                    </table>
+                    <div class="note-box">💡 Tip: Focus on scores above 8 for immediate action!</div>
+                    <h4>Example</h4>
+                    <p>Phishing: High likelihood (4), Medium impact (2) = 8. Mitigation: Email filters.</p>
+                    <pre>postfix -c /etc/postfix/main.cf</pre>
+                    <button class="cta-button" data-clipboard-text="postfix -c /etc/postfix/main.cf">Copy Command</button>
+                    <h4>Frameworks</h4>
+                    <ul>
+                        <li>NIST SP 800-30 (federal focus).</li>
+                        <li>ISO 31000 (global standard).</li>
+                    </ul>
+                    <h4>Real-World Case</h4>
+                    <p>Colonial Pipeline 2021: Poor segmentation amplified ransomware impact.</p>
+                    <div class="note-box">⚠️ Warning: Regular assessments prevent such disasters!</div>
+                </div>
+                <div class="quiz-container" id="quiz-risk-assessment">
+                    <button class="cta-button" onclick="showQuiz('risk-assessment')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/fundamentals/risk-assessment" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/fundamentals/risk-assessment" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-lock"></i></span>
+                <h3>Cryptography Basics</h3>
+                <p class="intro">Cryptography secures data with encryption and more. Explore this fascinating field!</p>
+                <div class="lesson-content">
+                    <h4>Symmetric Encryption</h4>
+                    <p>Uses one key for speed and efficiency.</p>
+                    <pre>openssl enc -aes-256-cbc -in data.txt -out data.enc</pre>
+                    <button class="cta-button" data-clipboard-text="openssl enc -aes-256-cbc -in data.txt -out data.enc">Copy Command</button>
+                    <pre>openssl enc -aes-256-cbc -d -in data.enc -out data.txt</pre>
+                    <button class="cta-button" data-clipboard-text="openssl enc -aes-256-cbc -d -in data.enc -out data.txt">Copy Command</button>
+                    <div class="note-box">💡 Tip: Rotate keys every 6 months for security!</div>
+                    <h4>Asymmetric Encryption</h4>
+                    <p>Uses key pairs for secure communication.</p>
+                    <pre>openssl genrsa -out private.pem 2048
+openssl rsa -in private.pem -outform PEM -pubout -out public.pem</pre>
+                    <button class="cta-button" data-clipboard-text="openssl genrsa -out private.pem 2048\nopenssl rsa -in private.pem -outform PEM -pubout -out public.pem">Copy Commands</button>
+                    <h4>Hashing</h4>
+                    <p>Creates unique data fingerprints.</p>
+                    <pre>echo -n "data" | sha256sum</pre>
+                    <button class="cta-button" data-clipboard-text="echo -n \"data\" | sha256sum">Copy Command</button>
+                    <div class="note-box">🌐 Fun Fact: SHA-256 is used in Bitcoin mining!</div>
+                    <h4>Digital Signatures</h4>
+                    <p>Ensures authenticity and integrity.</p>
+                    <pre>gpg --sign document.txt
+gpg --verify document.txt.gpg</pre>
+                    <button class="cta-button" data-clipboard-text="gpg --sign document.txt\ngpg --verify document.txt.gpg">Copy Commands</button>
+                    <h4>Key Management</h4>
+                    <ul>
+                        <li>Use AWS KMS or HashiCorp Vault.</li>
+                        <li>Rotate keys regularly.</li>
+                    </ul>
+                    <h4>Real-World Case</h4>
+                    <p>Heartbleed 2014 exposed keys due to a buffer overflow.</p>
+                    <div class="note-box">⚠️ Warning: Patch systems to avoid Heartbleed-like issues!</div>
+                </div>
+                <div class="quiz-container" id="quiz-cryptography">
+                    <button class="cta-button" onclick="showQuiz('cryptography')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/fundamentals/cryptography" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/fundamentals/cryptography" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-sitemap"></i></span>
+                <h3>Security Frameworks</h3>
+                <p class="intro">Frameworks guide cybersecurity strategies. Let’s explore them!</p>
+                <div class="lesson-content">
+                    <h4>NIST Cybersecurity Framework</h4>
+                    <p>Five functions: Identify, Protect, Detect, Respond, Recover.</p>
+                    <pre>chmod 600 sensitive_file.txt</pre>
+                    <button class="cta-button" data-clipboard-text="chmod 600 sensitive_file.txt">Copy Command</button>
+                    <div class="note-box">💡 Tip: Use NIST for flexible risk management!</div>
+                    <h4>ISO 27001</h4>
+                    <p>ISMS standard with risk focus.</p>
+                    <pre>tail -f /var/log/audit/audit.log</pre>
+                    <button class="cta-button" data-clipboard-text="tail -f /var/log/audit/audit.log">Copy Command</button>
+                    <h4>Other Frameworks</h4>
+                    <ul>
+                        <li>CIS Controls: 18 controls.</li>
+                        <li>PCI DSS: Payment security.</li>
+                        <li>GDPR: Data protection.</li>
+                    </ul>
+                    <table>
+                        <tr><th>Framework</th><th>Focus</th><th>Use Case</th></tr>
+                        <tr><td>NIST CSF</td><td>Risk</td><td>General</td></tr>
+                        <tr><td>ISO 27001</td><td>ISMS</td><td>Compliance</td></tr>
+                        <tr><td>CIS</td><td>Controls</td><td>Small firms</td></tr>
+                    </table>
+                    <h4>Implementation</h4>
+                    <pre>iptables -A INPUT -p tcp --dport 80 -j ACCEPT</pre>
+                    <button class="cta-button" data-clipboard-text="iptables -A INPUT -p tcp --dport 80 -j ACCEPT">Copy Command</button>
+                    <h4>Real-World Case</h4>
+                    <p>Equifax 2017: Unpatched systems breached.</p>
+                    <div class="note-box">⚠️ Warning: Frameworks require consistent updates!</div>
+                </div>
+                <div class="quiz-container" id="quiz-security-frameworks">
+                    <button class="cta-button" onclick="showQuiz('security-frameworks')">Take Quiz</button>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/fundamentals/security-frameworks" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/fundamentals/security-frameworks" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <button class="toggle-btn" aria-label="Toggle section content">Expand</button>
+            </section>
+            <section class="info-container section-animated">
+                <span class="section-icon"><i class="fas fa-trophy"></i></span>
+                <h3>Progress</h3>
+                <p class="intro">Track your journey and earn rewards!</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" aria-label="Progress"></div>
+                </div>
+                <div class="social-share">
+                    <a href="https://x.com/share?url=http://cyberwiki.com/fundamentals" class="share-btn" aria-label="Share on X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?url=http://cyberwiki.com/fundamentals" class="share-btn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </section>
+        </div>
+    </main>
+    <nav class="nav-container">
+        <a href="index.html" class="nav-item"><span class="nav-icon"><i class="fas fa-home"></i></span>Home</a>
+        <a href="fundamentals.html" class="nav-item active"><span class="nav-icon"><i class="fas fa-dna"></i></span>Fundamentals</a>
+        <a href="network.html" class="nav-item"><span class="nav-icon"><i class="fas fa-globe"></i></span>Network</a>
+        <a href="application.html" class="nav-item"><span class="nav-icon"><i class="fas fa-lock"></i></span>Apps</a>
+        <a href="resources.html" class="nav-item"><span class="nav-icon"><i class="fas fa-bolt"></i></span>Resources</a>
+    </nav>
+   
+    <script>
+        // Glowing Floating Stars
+        function unleashNebulaField() {
+            const container = document.getElementById('nebulaField');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 40 + 's';
+                star.style.animationDuration = (Math.random() * 30 + 20) + 's';
+                star.style.transform = `scale(${Math.random() * 0.7 + 0.3})`;
+                container.appendChild(star);
+            }
+        }
+
+        // Navigation
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentPage = window.location.pathname.split('/').pop() || 'fundamentals.html';
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Search Functionality
+        function initSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const sections = document.querySelectorAll('.info-container');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                sections.forEach(section => {
+                    const text = section.textContent.toLowerCase();
+                    section.style.display = text.includes(query) ? 'block' : 'none';
+                });
+            });
+        }
+
+        // Collapsible Sections
+        function initCollapsible() {
+            const toggles = document.querySelectorAll('.toggle-btn');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const container = toggle.parentElement;
+                    container.classList.toggle('collapsed');
+                    toggle.textContent = container.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+                });
+            });
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section-animated');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Parallax Effect
+        function initParallax() {
+            const bg = document.querySelector('.cosmic-bg');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                bg.style.transform = `translateY(${scrollY * 0.5}px)`;
+            });
+        }
+
+        // Rewards System
+        function updateRewards() {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            const progressFill = document.getElementById('progressFill');
+            progress = Math.min(100, parseInt(progress) || 0);
+            progressFill.style.width = `${progress}%`;
+            if (progress >= 100) {
+                alert('Congratulations! You’ve unlocked all rewards!');
+            }
+        }
+
+        function addProgress(points) {
+            let progress = localStorage.getItem('cyberProgress') || 0;
+            progress = parseInt(progress) + points;
+            localStorage.setItem('cyberProgress', progress);
+            updateRewards();
+        }
+
+        // Clipboard Functionality
+        function initClipboard() {
+            const buttons = document.querySelectorAll('[data-clipboard-text]');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.getAttribute('data-clipboard-text');
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    try {
+                        document.execCommand('copy');
+                        button.textContent = 'Copied!';
+                        setTimeout(() => { button.textContent = 'Copy Command'; }, 2000);
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        alert('Copy failed. Please copy manually.');
+                    }
+                    document.body.removeChild(tempInput);
+                });
+            });
+        }
+
+        // Quiz System
+        function showQuiz(topic) {
+            const quizzes = {
+                'cia-triad': [
+                    { q: 'What does CIA stand for?', a: 'Confidentiality, Integrity, Availability' },
+                    { q: 'Which principle ensures data access restriction?', a: 'Confidentiality' },
+                    { q: 'What detects data tampering?', a: 'Hashing' },
+                    { q: 'What defends against DoS?', a: 'Redundancy' },
+                    { q: 'What proves action traceability?', a: 'Non-repudiation' }
+                ],
+                'threat-modeling': [
+                    { q: 'What does STRIDE stand for?', a: 'Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege' },
+                    { q: 'What’s the first threat modeling step?', a: 'Define the system' },
+                    { q: 'Which threat involves privilege gain?', a: 'Elevation of Privilege' },
+                    { q: 'What mitigates SQL injection?', a: 'Prepared statements' },
+                    { q: 'Which tool aids threat modeling?', a: 'OWASP Threat Dragon' }
+                ],
+                'risk-assessment': [
+                    { q: 'What does a risk matrix assess?', a: 'Likelihood and impact' },
+                    { q: 'What’s the score for high-high risk?', a: '9' },
+                    { q: 'Which framework guides risk assessment?', a: 'NIST SP 800-30' },
+                    { q: 'What mitigates phishing?', a: 'Email filters' },
+                    { q: 'What failed in Colonial Pipeline?', a: 'Network segmentation' }
+                ],
+                'cryptography': [
+                    { q: 'What is symmetric encryption?', a: 'Uses a single key' },
+                    { q: 'Which algorithm uses key pairs?', a: 'RSA' },
+                    { q: 'What’s SHA-256 used for?', a: 'Hashing' },
+                    { q: 'What ensures authenticity?', a: 'Digital signatures' },
+                    { q: 'What exposed keys in 2014?', a: 'Heartbleed' }
+                ],
+                'security-frameworks': [
+                    { q: 'What are NIST’s five functions?', a: 'Identify, Protect, Detect, Respond, Recover' },
+                    { q: 'What is ISO 27001?', a: 'ISMS standard' },
+                    { q: 'Which framework secures payments?', a: 'PCI DSS' },
+                    { q: 'What’s a CIS Control example?', a: 'Firewall setup' },
+                    { q: 'What was missing in Equifax 2017?', a: 'Patches' }
+                ]
+            };
+            const quiz = quizzes[topic];
+            const container = document.getElementById(`quiz-${topic}`);
+            container.innerHTML = `
+                <h4>Quiz Time!</h4>
+                <form class="quiz-form" id="quiz-form-${topic}">
+                    ${quiz.map((q, i) => `
+                        <div class="quiz-question">
+                            <p>${i + 1}. ${q.q}</p>
+                            <input type="text" class="quiz-answer" data-index="${i}" placeholder="Your answer" required>
+                        </div>
+                    `).join('')}
+                    <button type="submit" class="cta-button">Submit</button>
+                </form>
+            `;
+            const form = document.getElementById(`quiz-form-${topic}`);
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    submitQuiz(topic, form);
+                });
+            }
+        }
+
+        function submitQuiz(topic, form) {
+            const answers = form.querySelectorAll('.quiz-answer');
+            const quiz = {
+                'cia-triad': ['Confidentiality, Integrity, Availability', 'Confidentiality', 'Hashing', 'Redundancy', 'Non-repudiation'],
+                'threat-modeling': ['Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege', 'Define the system', 'Elevation of Privilege', 'Prepared statements', 'OWASP Threat Dragon'],
+                'risk-assessment': ['Likelihood and impact', '9', 'NIST SP 800-30', 'Email filters', 'Network segmentation'],
+                'cryptography': ['Uses a single key', 'RSA', 'Hashing', 'Digital signatures', 'Heartbleed'],
+                'security-frameworks': ['Identify, Protect, Detect, Respond, Recover', 'ISMS standard', 'PCI DSS', 'Firewall setup', 'Patches']
+            }[topic];
+            let score = 0;
+            answers.forEach((input, i) => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = quiz[i].toLowerCase();
+                if (userAnswer === correctAnswer) score++;
+            });
+            addProgress(score * 5);
+            form.outerHTML = `<p>Score: ${score}/${quiz.length}</p><button class="cta-button" onclick="showQuiz('${topic}')">Retry</button>`;
+        }
+
+        // Initialize
+        function init() {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    unleashNebulaField();
+                    initNavigation();
+                    initSearch();
+                    initCollapsible();
+                    initScrollAnimations();
+                    initParallax();
+                    updateRewards();
+                    initClipboard();
+                });
+            } else {
+                unleashNebulaField();
+                initNavigation();
+                initSearch();
+                initCollapsible();
+                initScrollAnimations();
+                initParallax();
+                updateRewards();
+                initClipboard();
+            }
+        }
+
+        window.addEventListener('storage', updateRewards);
+        window.addEventListener('load', updateRewards);
+
+        init();
+    </script>
+</body>
+</html>
